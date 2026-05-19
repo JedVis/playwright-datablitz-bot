@@ -1,6 +1,6 @@
-# Playwright DataBlitz Bot
+# DataBlitz Check-Out Bot via Playwright
 
-A browser automation bot that simulates buying a limited-release Pokemon booster box from a self-built mock DataBlitz e-commerce site. Built as a side project to demonstrate browser automation, Docker containerization, and end-to-end web interaction.
+A browser automation bot that simulates buying limited-release Pokémon TCG products from a self-built mock DataBlitz e-commerce site. Built as a side project to demonstrate Playwright's browser automation use-case, Docker containerization, and end-to-end web interaction.
 
 ---
 

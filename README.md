@@ -109,6 +109,7 @@ After all runs complete, a CSV report is saved as `screenshots/test-results_[tim
 |---|---|---|---|---|
 | 1 | Journey Together Booster Box | 4,950.00 | Success | 48s |
 | 2 | Journey Together Booster Pack | 195.00 | Success | 12s |
+| 3 | Journey Together Trainer Box | 2,450.00 | Success | 23s |
 
 ---
 

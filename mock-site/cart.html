@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cart — DATABLITZ</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-left">
+      <a href="index.html" class="logo-block">
+        <div class="logo-main">Data<span>blitz</span></div>
+        <div class="logo-sub">Your Total Gaming &amp; Multimedia Store</div>
+      </a>
+    </div>
+    <div class="header-right">
+      <a href="index.html">← Continue Shopping</a>
+      <a href="cart.html" class="cart-link">Cart <span class="cart-badge">1</span></a>
+    </div>
+  </header>
+
+  <nav class="site-nav">
+    <a href="index.html">Home</a>
+    <a href="#">Collectibles</a>
+    <a href="#">Pre-Orders</a>
+    <a href="#" class="nav-hot">Promos</a>
+  </nav>
+
+  <div class="breadcrumb-bar">
+    <a href="index.html">Home</a>
+    <span class="sep">›</span>
+    <span class="current">Shopping Cart</span>
+  </div>
+
+  <div class="page-content">
+    <div class="page-title">Shopping Cart</div>
+
+    <div class="cart-layout">
+
+      <div class="cart-items-box">
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Qty</th>
+              <th>Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="cart-item-info">
+                  <div class="cart-item-img">
+                    <!-- src is set by the script below after onerror is attached -->
+                    <img id="cart-img-el" alt="" />
+                    <span id="cart-img-fallback" style="display:none; font-size:1.8rem;"></span>
+                  </div>
+                  <div>
+                    <div class="cart-item-name" id="cart-product-name">Loading...</div>
+                    <div class="cart-item-sub" id="cart-product-sku"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="cart-item-price" id="cart-unit-price">—</td>
+              <td style="color:var(--text-muted);">1</td>
+              <td class="cart-item-price" id="cart-subtotal">—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="cart-summary-box">
+        <div class="summary-header">Order Summary</div>
+        <div class="summary-body">
+          <div class="summary-row"><span>Subtotal</span><span id="summary-subtotal">—</span></div>
+          <div class="summary-row"><span>Shipping</span><span>&#8369;150.00</span></div>
+          <div class="summary-row"><span>Handling Fee</span><span>&#8369;50.00</span></div>
+          <div class="summary-total"><span>Total</span><span id="summary-total">—</span></div>
+          <a id="checkout-btn" href="#" class="btn btn-primary">Proceed to Checkout →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 DATABLITZ &nbsp;|&nbsp; Mock site — no real transactions.
+  </footer>
+
+  <script>
+    const CATALOG = {
+      1: { name: 'Pokemon TCG: SV — Journey Together Booster Box (36 Packs)', sku: 'SKU: PKM-JT-BB-001', price: 4950, img: 'images/booster-box.png',  icon: '🎴' },
+      2: { name: 'Pokemon TCG: SV — Journey Together Booster Pack (10 Cards)', sku: 'SKU: PKM-JT-BP-001', price: 195,  img: 'images/booster-pack.png', icon: '🃏' },
+      3: { name: 'Pokemon TCG: SV — Journey Together Trainer Box',             sku: 'SKU: PKM-JT-TB-001', price: 2450, img: 'images/trainer-box.png',  icon: '📦' },
+    };
+
+    const params    = new URLSearchParams(window.location.search);
+    const productId = params.get('product') || '1';
+    const p         = CATALOG[productId] || CATALOG[1];
+    const fmt       = n => '&#8369;' + n.toLocaleString('en-PH', { minimumFractionDigits: 2 });
+    const total     = p.price + 200;
+
+    // Populate text fields
+    document.getElementById('cart-product-name').textContent = p.name;
+    document.getElementById('cart-product-sku').textContent  = p.sku;
+    document.getElementById('cart-unit-price').innerHTML     = fmt(p.price);
+    document.getElementById('cart-subtotal').innerHTML       = fmt(p.price);
+    document.getElementById('summary-subtotal').innerHTML    = fmt(p.price);
+    document.getElementById('summary-total').innerHTML       = fmt(total);
+    document.getElementById('checkout-btn').href             = `checkout.html?product=${productId}`;
+
+    // Set image: attach onerror BEFORE assigning src so the handler exists when it fires
+    const imgEl    = document.getElementById('cart-img-el');
+    const fallback = document.getElementById('cart-img-fallback');
+
+    fallback.textContent = p.icon;
+
+    imgEl.onerror = function() {
+      this.style.display    = 'none';
+      fallback.style.display = 'block';
+    };
+    imgEl.src = p.img;
+  </script>
+
+</body>
+</html>

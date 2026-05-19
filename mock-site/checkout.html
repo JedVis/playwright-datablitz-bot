@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout — DATABLITZ</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-left">
+      <a href="index.html" class="logo-block">
+        <div class="logo-main">Data<span>blitz</span></div>
+        <div class="logo-sub">Your Total Gaming &amp; Multimedia Store</div>
+      </a>
+    </div>
+    <div class="header-right">
+      <a href="cart.html" id="back-to-cart">← Back to Cart</a>
+      <a href="cart.html" class="cart-link"> <span class="cart-badge">1</span> Cart</a>
+    </div>
+  </header>
+
+  <nav class="site-nav">
+    <a href="index.html">Home</a>
+    <a href="#">Collectibles</a>
+    <a href="#" class="nav-hot">Promos</a>
+  </nav>
+
+  <div class="breadcrumb-bar">
+    <a href="index.html">Home</a>
+    <span class="sep">›</span>
+    <a href="#" id="breadcrumb-cart">Cart</a>
+    <span class="sep">›</span>
+    <span class="current">Checkout</span>
+  </div>
+
+  <div class="page-content">
+    <div class="page-title">Secure Checkout</div>
+
+    <div class="checkout-layout">
+
+      <!-- Left: form -->
+      <div>
+
+        <!-- Contact -->
+        <div class="checkout-form-box" style="margin-bottom:20px;">
+          <div class="form-section-header">Contact Information</div>
+          <div class="form-section-body">
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <!-- Each input id is used by Playwright: page.fill('#email', value) -->
+              <input type="email" id="email" placeholder="you@example.com" autocomplete="off" />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" placeholder="+63 9XX XXX XXXX" autocomplete="off" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Shipping -->
+        <div class="checkout-form-box" style="margin-bottom:20px;">
+          <div class="form-section-header">Shipping Address</div>
+          <div class="form-section-body">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="first-name">First Name</label>
+                <input type="text" id="first-name" placeholder="Juan" autocomplete="off" />
+              </div>
+              <div class="form-group">
+                <label for="last-name">Last Name</label>
+                <input type="text" id="last-name" placeholder="dela Cruz" autocomplete="off" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="address">Street Address</label>
+              <input type="text" id="address" placeholder="123 Rizal St." autocomplete="off" />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="city">City / Municipality</label>
+                <input type="text" id="city" placeholder="Quezon City" autocomplete="off" />
+              </div>
+              <div class="form-group">
+                <label for="zip">ZIP Code</label>
+                <input type="text" id="zip" placeholder="1100" autocomplete="off" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment -->
+        <div class="checkout-form-box">
+          <div class="form-section-header">
+            Payment Details &nbsp;
+            <span style="font-weight:400; text-transform:none; font-size:0.75rem; opacity:0.7;">(Demo — no real charges)</span>
+          </div>
+          <div class="form-section-body">
+            <div class="payment-notice">
+              🔒 Demo site. Use any dummy card details. No real payment is processed.
+            </div>
+            <div class="form-group">
+              <label for="card-name">Name on Card</label>
+              <input type="text" id="card-name" placeholder="JUAN DELA CRUZ" autocomplete="off" />
+            </div>
+            <div class="form-group">
+              <label for="card-number">Card Number</label>
+              <input type="text" id="card-number" placeholder="4111 1111 1111 1111" maxlength="19" autocomplete="off" />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="card-expiry">Expiry (MM/YY)</label>
+                <input type="text" id="card-expiry" placeholder="12/29" maxlength="5" autocomplete="off" />
+              </div>
+              <div class="form-group">
+                <label for="card-cvv">CVV</label>
+                <input type="text" id="card-cvv" placeholder="123" maxlength="3" autocomplete="off" />
+              </div>
+            </div>
+
+            <!-- Playwright clicks id="place-order-btn" to submit -->
+            <button
+              id="place-order-btn"
+              class="btn btn-primary"
+              style="margin-top:8px;"
+            >
+              Place Order — <span id="btn-total">₱5,150.00</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right: order summary sidebar -->
+      <div class="order-summary-sidebar">
+        <div class="oss-header">Order Summary</div>
+        <div class="oss-body">
+          <div class="oss-item">
+            <span class="item-name" id="oss-product-name">Loading...</span>
+            <span id="oss-product-price">—</span>
+          </div>
+          <div class="oss-item"><span>Qty</span><span>×1</span></div>
+          <div class="oss-item"><span>Shipping</span><span>₱150.00</span></div>
+          <div class="oss-item"><span>Handling</span><span>₱50.00</span></div>
+          <div class="oss-total">
+            <span>Total</span>
+            <span id="oss-total" style="color:var(--db-blue-text);">—</span>
+          </div>
+          <div class="secure-note">🛡️ Secured by DataBlitz Checkout<br/><span style="font-size:0.7rem;">128-bit SSL Encrypted (Demo)</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    © 2026 <strong>DATABLITZ</strong> &nbsp;|&nbsp; Mock site — no real transactions.
+  </footer>
+
+  <script>
+    const CATALOG = {
+      1: { name: 'Pokémon TCG: SV — Journey Together Booster Box (36 Packs)', price: 4950 },
+      2: { name: 'Pokémon TCG: SV — Journey Together Booster Pack (10 Cards)', price: 195  },
+      3: { name: 'Pokémon TCG: SV — Journey Together Trainer Box',             price: 2450 },
+    };
+
+    const params    = new URLSearchParams(window.location.search);
+    const productId = params.get('product') || '1';
+    const p         = CATALOG[productId] || CATALOG[1];
+    const total     = p.price + 200;
+    const fmt       = n => '₱' + n.toLocaleString('en-PH', { minimumFractionDigits: 2 });
+
+    // Populate sidebar
+    document.getElementById('oss-product-name').textContent  = p.name;
+    document.getElementById('oss-product-price').textContent = fmt(p.price);
+    document.getElementById('oss-total').textContent         = fmt(total);
+    document.getElementById('btn-total').textContent         = fmt(total);
+
+    // Keep product param flowing to confirmation
+    document.getElementById('back-to-cart').href       = `cart.html?product=${productId}`;
+    document.getElementById('breadcrumb-cart').href    = `cart.html?product=${productId}`;
+
+    // Submit → navigate to confirmation with product param
+    document.getElementById('place-order-btn').addEventListener('click', () => {
+      window.location.href = `confirmation.html?product=${productId}`;
+    });
+  </script>
+
+</body>
+</html>

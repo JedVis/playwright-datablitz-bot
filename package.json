@@ -1,0 +1,15 @@
+{
+  "name": "playwright-datablitz-bot",
+  "version": "1.0.0",
+  "description": "Playwright bot that auto-buys from a mock DataBlitz store",
+  "main": "bot/bot.js",
+  "scripts": {
+    "start:site": "http-server mock-site -p 8080 --cors -c-1",
+    "start:bot": "node bot/bot.js",
+    "start": "npm run start:site & npm run start:bot"
+  },
+  "dependencies": {
+    "http-server": "^14.1.1",
+    "playwright": "^1.44.0"
+  }
+}

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pokemon TCG — DATABLITZ</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-left">
+      <a href="index.html" class="logo-block">
+        <div class="logo-main">Data<span>blitz</span></div>
+        <div class="logo-sub">Your Total Gaming &amp; Multimedia Store</div>
+      </a>
+      <div class="search-bar">
+        <input type="text" placeholder="pokemon*" value="pokemon*" />
+        <button>&#128269;</button>
+      </div>
+    </div>
+    <div class="header-right">
+      <a href="#">Login / Signup</a>
+      <a href="cart.html" class="cart-link">
+        Cart <span class="cart-badge" id="cart-count">0</span>
+      </a>
+    </div>
+  </header>
+
+  <nav class="site-nav">
+    <a href="#">Home</a>
+    <a href="#">PS5</a>
+    <a href="#">PS4</a>
+    <a href="#">Switch</a>
+    <a href="#">Xbox</a>
+    <a href="#">PC / Mac</a>
+    <a href="#" class="active">Collectibles</a>
+    <a href="#">Pre-Orders</a>
+    <a href="#">Digital Store</a>
+    <a href="#" class="nav-hot">Promos</a>
+    <a href="#">Order Status</a>
+  </nav>
+
+  <!-- Countdown banner: hides timer and shows LIVE badge when drop releases -->
+  <div class="countdown-banner" id="countdown-banner">
+    <span class="banner-label">Exclusive Drop — Journey Together Booster Box:</span>
+    <div class="countdown-timer-inline">
+      <div class="cti-unit">
+        <div class="cti-value" id="cd-hours">00</div>
+        <div class="cti-label">Hrs</div>
+      </div>
+      <div class="cti-colon">:</div>
+      <div class="cti-unit">
+        <div class="cti-value" id="cd-minutes">00</div>
+        <div class="cti-label">Min</div>
+      </div>
+      <div class="cti-colon">:</div>
+      <div class="cti-unit">
+        <div class="cti-value" id="cd-seconds">00</div>
+        <div class="cti-label">Sec</div>
+      </div>
+    </div>
+    <span id="banner-live" class="live-badge" style="display:none;">DROP IS LIVE</span>
+  </div>
+
+  <div class="breadcrumb-bar">
+    <a href="#">Home</a>
+    <span class="sep">›</span>
+    <a href="#">Collectibles</a>
+    <span class="sep">›</span>
+    <span class="current">Pokemon TCG</span>
+  </div>
+
+  <section class="shop-section">
+    <div class="shop-header">
+      <div>
+        <h1>Pokemon TCG — Journey Together</h1>
+        <div class="result-count">Showing 3 products</div>
+      </div>
+    </div>
+
+    <div class="product-grid">
+
+      <!-- Product 1: Booster Box — id="buy-btn-1" is used by the Playwright bot -->
+      <div class="product-card">
+        <div class="card-img">
+          <img
+            src="images/booster-box.png"
+            alt="Journey Together Booster Box"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"
+          />
+          <div class="img-placeholder" style="display:none;">
+            <div class="placeholder-icon">[ image ]</div>
+            <div>Add booster-box.png to mock-site/images/</div>
+          </div>
+          <span class="card-badge badge-drop">Exclusive Drop</span>
+        </div>
+        <div class="card-body">
+          <div class="card-price">&#8369;4,950.00</div>
+          <div class="card-name">Pokemon TCG: Scarlet &amp; Violet — Journey Together Booster Box (36 Packs)</div>
+          <div class="card-sku">SKU: PKM-JT-BB-001</div>
+          <button
+            id="buy-btn-1"
+            class="btn-add-cart locked"
+            disabled
+            onclick="addToCart(); window.location.href='cart.html?product=1'"
+          >
+            Add to Cart
+          </button>
+        </div>
+      </div>
+
+      <!-- Product 2: Booster Pack -->
+      <div class="product-card">
+        <div class="card-img">
+          <img
+            src="images/booster-pack.png"
+            alt="Journey Together Booster Pack"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"
+          />
+          <div class="img-placeholder" style="display:none;">
+            <div class="placeholder-icon">[ image ]</div>
+            <div>Add booster-pack.png to mock-site/images/</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-price">&#8369;195.00</div>
+          <div class="card-name">Pokemon TCG: Scarlet &amp; Violet — Journey Together Booster Pack (10 Cards)</div>
+          <div class="card-sku">SKU: PKM-JT-BP-001</div>
+          <button
+            id="buy-btn-2"
+            class="btn-add-cart"
+            onclick="window.location.href='cart.html?product=2'"
+          >
+            Add to Cart
+          </button>
+        </div>
+      </div>
+
+      <!-- Product 3: Trainer Box -->
+      <div class="product-card">
+        <div class="card-img">
+          <img
+            src="images/trainer-box.png"
+            alt="Journey Together Trainer Box"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"
+          />
+          <div class="img-placeholder" style="display:none;">
+            <div class="placeholder-icon">[ image ]</div>
+            <div>Add trainer-box.png to mock-site/images/</div>
+          </div>
+          <span class="card-badge">New</span>
+        </div>
+        <div class="card-body">
+          <div class="card-price">&#8369;2,450.00</div>
+          <div class="card-name">Pokemon TCG: Scarlet &amp; Violet — Journey Together Trainer Box</div>
+          <div class="card-sku">SKU: PKM-JT-TB-001</div>
+          <button
+            id="buy-btn-3"
+            class="btn-add-cart"
+            onclick="window.location.href='cart.html?product=3'"
+          >
+            Add to Cart
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2026 DATABLITZ &nbsp;|&nbsp; Mock site — no real transactions.
+  </footer>
+
+  <script>
+    // Change this to match RELEASE_DATE_STR in bot/bot.js
+    const RELEASE_DATE = new Date('2026-05-19T8:35:00');
+
+    const buyBtn    = document.getElementById('buy-btn-1');
+    const hoursEl   = document.getElementById('cd-hours');
+    const minutesEl = document.getElementById('cd-minutes');
+    const secondsEl = document.getElementById('cd-seconds');
+    const liveBadge = document.getElementById('banner-live');
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function tick() {
+      const diff = RELEASE_DATE - new Date();
+
+      if (diff <= 0) {
+        hoursEl.textContent   = '00';
+        minutesEl.textContent = '00';
+        secondsEl.textContent = '00';
+
+        buyBtn.disabled = false;
+        buyBtn.textContent = 'Add to Cart';
+        buyBtn.classList.remove('locked');
+
+        liveBadge.style.display = 'inline-block';
+        document.querySelectorAll('.cti-unit, .cti-colon').forEach(el => el.style.display = 'none');
+
+        clearInterval(timer);
+        return;
+      }
+
+      const total   = Math.floor(diff / 1000);
+      const hours   = Math.floor(total / 3600);
+      const minutes = Math.floor((total % 3600) / 60);
+      const seconds = total % 60;
+
+      hoursEl.textContent   = pad(hours);
+      minutesEl.textContent = pad(minutes);
+      secondsEl.textContent = pad(seconds);
+    }
+
+    // Updates the cart badge count in the header
+    function addToCart() {
+      const badge = document.getElementById('cart-count');
+      badge.textContent = parseInt(badge.textContent || 0) + 1;
+    }
+
+    tick();
+    const timer = setInterval(tick, 1000);
+  </script>
+
+</body>
+</html>

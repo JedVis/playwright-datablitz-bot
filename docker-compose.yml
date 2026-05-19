@@ -1,0 +1,74 @@
+# ============================================================
+# docker-compose.yml — DataBlitz Bot + Mock Site
+# ============================================================
+#
+# This file defines two services:
+# 1. mock-site   — a tiny web server that serves the HTML pages
+# 2. bot         — the Playwright bot that automates the browser
+#
+# Docker Compose creates a private network between them.
+# The bot can reach the site at http://mock-site:8080
+
+services:
+
+  # ---- Service 1: The Mock DataBlitz Website ----
+  mock-site:
+    # We use a lightweight web server image (nginx-based, but simpler)
+    # that just serves static files. No Node.js needed for this.
+    image: node:20-alpine
+    
+    # The working directory inside the container
+    working_dir: /app
+    
+    # Mount the mock-site folder into the container
+    # This maps your local mock-site/ folder to /app/mock-site/ in the container
+    volumes:
+      - ./mock-site:/app/mock-site
+      - ./package.json:/app/package.json
+      - ./package-lock.json:/app/package-lock.json
+    
+    # Install http-server and start it
+    command: >
+      sh -c "npm install http-server &&
+             npx http-server /app/mock-site -p 8080 --cors -c-1"
+    
+    # Expose port 8080 to other containers (not to your host computer)
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080" 
+    # Health check: Docker waits until the server responds before
+    # starting the bot. This prevents the bot from running before
+    # the site is ready.
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:8080', r => process.exit(r.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))"]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+      start_period: 15s
+
+  # ---- Service 2: The Playwright Bot ----
+  bot:
+    # Build from our Dockerfile in the current directory
+    build: .
+    
+    # Environment variables passed into the container.
+    # These override any defaults in bot.js.
+    environment:
+      # Tell the bot to use the mock-site service URL instead of a local file path.
+      # "mock-site" is the service name above — Docker Compose creates a
+      # hostname for each service so they can talk to each other.
+      - PRODUCT_URL=http://mock-site:8080/index.html
+      
+      # Run headless (no visible browser window) — required in Docker
+      - HEADLESS=true
+    
+    # Mount the screenshots folder so the bot's output file appears
+    # on YOUR computer, not just inside the container.
+    volumes:
+      - ./screenshots:/app/screenshots
+    
+    # The bot waits for mock-site to be healthy before starting.
+    depends_on:
+      mock-site:
+        condition: service_healthy

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order Confirmed — DATABLITZ</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ---- Animated checkmark ---- */
+    .checkmark-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .checkmark {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+    }
+
+    /* Circle: draws itself over 0.6s */
+    .checkmark-circle {
+      stroke: #ffffff;
+      stroke-width: 2.5;
+      stroke-dasharray: 166;
+      stroke-dashoffset: 166;
+      animation: draw-circle 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+    }
+
+    /* Tick: draws itself after circle finishes */
+    .checkmark-tick {
+      stroke: #ffffff;
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 50;
+      stroke-dashoffset: 50;
+      animation: draw-tick 0.4s cubic-bezier(0.65, 0, 0.45, 1) 0.55s forwards;
+    }
+
+    /* Whole SVG pops in slightly */
+    .checkmark {
+      animation: pop-in 0.3s ease-out forwards;
+    }
+
+    @keyframes draw-circle {
+      to { stroke-dashoffset: 0; }
+    }
+
+    @keyframes draw-tick {
+      to { stroke-dashoffset: 0; }
+    }
+
+    @keyframes pop-in {
+      0%   { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1);   opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-left">
+      <a href="index.html" class="logo-block">
+        <div class="logo-main">Data<span>blitz</span></div>
+        <div class="logo-sub">Your Total Gaming &amp; Multimedia Store</div>
+      </a>
+    </div>
+    <div class="header-right">
+      <a href="index.html">Continue Shopping</a>
+      <a href="index.html" class="cart-link">Cart <span class="cart-badge">0</span></a>
+    </div>
+  </header>
+
+  <nav class="site-nav">
+    <a href="index.html">Home</a>
+    <a href="#">Collectibles</a>
+    <a href="#" class="nav-hot">Promos</a>
+  </nav>
+
+  <div class="breadcrumb-bar">
+    <a href="index.html">Home</a>
+    <span class="sep">›</span>
+    <span class="current">Order Confirmation</span>
+  </div>
+
+  <div class="confirmation-wrapper" id="confirmation-page">
+    <div class="confirmation-card">
+
+      <div class="confirmation-top">
+
+        <!-- Animated SVG checkmark circle -->
+        <div class="checkmark-wrapper">
+          <svg class="checkmark" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+            <!-- Filled green background circle -->
+            <circle cx="26" cy="26" r="26" fill="#2e7d32" />
+            <!-- Animated border circle -->
+            <circle class="checkmark-circle" cx="26" cy="26" r="24" fill="none" />
+            <!-- Animated tick -->
+            <path class="checkmark-tick" fill="none" d="M14 27 l8 8 l16 -16" />
+          </svg>
+        </div>
+
+        <h1>Order Confirmed!</h1>
+        <div class="order-num" id="order-num">Order #DB-XXXXXX</div>
+      </div>
+
+      <div class="confirmation-body">
+        <p>
+          You successfully secured your <strong id="conf-product-name">item</strong>.
+          A confirmation has been sent to your email address.
+          Your order will be ready for pickup or delivery within 3–5 business days.
+        </p>
+
+        <table class="conf-details-table">
+          <tr><td>Product</td><td id="conf-product-full">—</td></tr>
+          <tr><td>Quantity</td><td>1</td></tr>
+          <tr><td>Amount Paid</td><td id="conf-total" style="color:var(--db-blue-text); font-weight:700;">—</td></tr>
+          <tr><td>Payment Method</td><td>Credit Card (Demo)</td></tr>
+          <tr><td>Estimated Delivery</td><td id="conf-delivery">—</td></tr>
+          <tr><td>Order Status</td><td style="color:var(--success); font-weight:700;">Confirmed</td></tr>
+        </table>
+
+        <div class="conf-actions">
+          <a href="index.html" class="btn btn-secondary">← Back to Store</a>
+          <a href="#" class="btn btn-primary" onclick="window.print(); return false;">Print Receipt</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 DATABLITZ &nbsp;|&nbsp; Mock site — no real transactions.
+  </footer>
+
+  <script>
+    const CATALOG = {
+      1: { name: 'Journey Together Booster Box',  full: 'Pokemon TCG: SV — Journey Together Booster Box (36 Packs)',  price: 4950 },
+      2: { name: 'Journey Together Booster Pack', full: 'Pokemon TCG: SV — Journey Together Booster Pack (10 Cards)', price: 195  },
+      3: { name: 'Journey Together Trainer Box',  full: 'Pokemon TCG: SV — Journey Together Trainer Box',            price: 2450 },
+    };
+
+    const params    = new URLSearchParams(window.location.search);
+    const productId = params.get('product') || '1';
+    const p         = CATALOG[productId] || CATALOG[1];
+    const fmt       = n => '&#8369;' + n.toLocaleString('en-PH', { minimumFractionDigits: 2 });
+
+    const orderNum = 'DB-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+
+    const delivery = new Date();
+    delivery.setDate(delivery.getDate() + 5);
+    const deliveryStr = delivery.toLocaleDateString('en-PH', {
+      weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'
+    });
+
+    document.getElementById('order-num').textContent          = 'Order #' + orderNum;
+    document.getElementById('conf-product-name').textContent  = p.name;
+    document.getElementById('conf-product-full').textContent  = p.full;
+    document.getElementById('conf-total').innerHTML           = fmt(p.price + 200);
+    document.getElementById('conf-delivery').textContent      = deliveryStr;
+  </script>
+
+</body>
+</html>

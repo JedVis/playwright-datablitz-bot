@@ -134,6 +134,6 @@ After all runs complete, a CSV report is saved as `screenshots/test-results_[tim
 
 ---
 
-## Notes
+## Note
 
 This is a demonstration project. No real payments are processed and no real orders are placed. The dummy card number `4111 1111 1111 1111` is a standard test number used across the industry.

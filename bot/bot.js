@@ -12,12 +12,12 @@ const fs   = require('fs');
 // ===========================
 
 // Must match RELEASE_DATE in mock-site/index.html (only affects Booster Box)
-const RELEASE_DATE_STR = '2026-05-19T8:35:00';
+const RELEASE_DATE_STR = '2026-05-20T10:01:00';
 
 // Base URL of the mock site
 const BASE_URL = process.env.PRODUCT_URL
   ? process.env.PRODUCT_URL.replace('/index.html', '')
-  : `file://${path.resolve(__dirname, '../mock-site/index.html')}`;
+  : `file://${path.resolve(__dirname, '../mock-site/')}`;
 
 // Dummy buyer info used to fill the checkout form
 const BUYER = {
@@ -100,7 +100,7 @@ async function runSingle(productId, runIndex) {
 
     // -- Launch browser --
     const isHeadless = process.env.HEADLESS === 'true';
-    const browser = await chromium.launch({ headless: isHeadless, slowMo: isHeadless ? 0 : 4000 });
+    const browser = await chromium.launch({ headless: isHeadless, slowMo: isHeadless ? 0 : 800 }); // <- Edit numerical value to adjust automation speed
     const page    = await browser.newPage();
     await page.setViewportSize({ width: 1280, height: 800 });
 

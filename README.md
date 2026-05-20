@@ -40,7 +40,7 @@ playwright-datablitz-bot/
 
 The mock site simulates a DataBlitz product drop with three Pokemon TCG products. The booster box has a countdown timer that locks its Add to Cart button until the set release time. The bot waits for that exact moment, clicks the button the instant it unlocks, proceeds through the cart and checkout form automatically, and saves a screenshot of the confirmation page as proof.
 
-After all runs finish, a CSV report is saved to the screenshots folder with the result of each run.
+After all runs are finished, a CSV report is saved to the screenshots folder with the result of each run.
 
 ---
 
@@ -53,7 +53,7 @@ Before running, these two values must match each other exactly.
 | `mock-site/index.html` | `const RELEASE_DATE` | Controls when the Add to Cart button unlocks |
 | `bot/bot.js` | `const RELEASE_DATE_STR` | Controls when the bot stops waiting |
 
-Format: `YYYY-MM-DDTHH:MM:SS` — for example `2025-06-10T15:47:00`
+Format: `YYYY-MM-DDTHH:MM:SS` — for example `2026-05-18T13:30:00` (24 hour format)
 
 To choose which products the bot buys, edit the `RUNS` array in `bot/bot.js`:
 
@@ -62,6 +62,27 @@ const RUNS = [1];       // Booster Box only
 const RUNS = [2, 3];    // Booster Pack then Trainer Box
 const RUNS = [1, 2, 3]; // all three products
 ```
+
+---
+
+## Automation Speed (slowMo)
+ 
+When running in headed mode (non-Docker), the bot uses Playwright's `slowMo` option to add a delay between each action. This makes the automation visible and easier to follow in the browser window.
+ 
+The value is set in `bot/bot.js` when the browser is launched:
+ 
+```javascript
+const browser = await chromium.launch({ headless: false, slowMo: 400 });
+```
+Adjust the numerical value to suit your preference
+
+Below are some preset values and their effects: 
+| Value | Effect |
+|---|---|
+| `0` | No delay — runs as fast as possible |
+| `200` | Fast but still watchable |
+| `400` | Default — comfortable to follow |
+| `800` | Slow — useful for debugging |
 
 ---
 
